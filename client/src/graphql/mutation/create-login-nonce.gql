@@ -1,0 +1,3 @@
+mutation CreateLoginNonce($userId: ID!) {
+  createLoginNonce(userId: $userId)
+}

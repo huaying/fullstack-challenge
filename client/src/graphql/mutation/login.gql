@@ -1,0 +1,3 @@
+mutation Login($userId: ID!, $signature: String!) {
+  login(userId: $userId, signature: $signature)
+}

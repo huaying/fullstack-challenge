@@ -9,12 +9,14 @@ const typeDefs = gql`
   }
 
   type Query {
-    articles(userId: ID): [Article]
-    article(articleId: ID, userId: ID): Article
+    articles(userId: ID!): [Article]
+    article(articleId: ID!, userId: ID!): Article
   }
 
   type Mutation {
-    createArticle(userId: ID, title: String, content: String): Article
+    createLoginNonce(userId: ID!): String
+    login(userId: ID!, signature: String!): JWT
+    createArticle(userId: ID!, title: String!, content: String!): Article
   }
 `;
 

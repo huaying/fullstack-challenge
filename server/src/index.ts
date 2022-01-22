@@ -4,19 +4,25 @@ import { ApolloServer } from "apollo-server";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import resolvers from "./graphql/resolvers";
 import typeDefs from "./graphql/typeDefs";
-import { TimestampResolver, TimestampTypeDefinition } from "graphql-scalars";
+import {
+  TimestampResolver,
+  TimestampTypeDefinition,
+  JWTResolver,
+  JWTDefinition,
+} from "graphql-scalars";
 
 // init server
 const server = new ApolloServer({
   cors: {
-    origin: [],
+    origin: "*",
   },
   dataSources: () => ({}),
   debug: true,
   schema: makeExecutableSchema({
-    typeDefs: [TimestampTypeDefinition, typeDefs],
+    typeDefs: [TimestampTypeDefinition, JWTDefinition, typeDefs],
     resolvers: {
       Timestamp: TimestampResolver,
+      JWT: JWTResolver,
       ...resolvers,
     },
   }),
