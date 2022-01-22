@@ -1,18 +1,32 @@
-/**
- * This is an incomplete script of client app. Please
- * make it live with features we requested. :)
- *
- */
+import { Mainnet, DAppProvider, useEthers, Config } from "@usedapp/core";
+import React from "react";
+import { render } from "react-dom";
 
-import React from 'react'
-import { render } from 'react-dom'
+const config: Config = {
+  readOnlyChainId: Mainnet.chainId,
+  readOnlyUrls: {
+    [Mainnet.chainId]:
+      "https://mainnet.infura.io/v3/62687d1a985d4508b2b7a24827551934",
+  },
+};
 
-const App = (): React.ReactElement => {
+export function App(): React.ReactElement {
+  const { activateBrowserWallet, account } = useEthers();
+
   return (
-    <section>
-      Hello, world! :)
-    </section>
-  )
+    <div>
+      <div>
+        {!account && (
+          <button onClick={() => activateBrowserWallet()}>Connect</button>
+        )}
+      </div>
+      {account && <p>Account: {account}</p>}
+    </div>
+  );
 }
-
-render(<App />, document.getElementById('app'))
+render(
+  <DAppProvider config={config}>
+    <App />
+  </DAppProvider>,
+  document.getElementById("app")
+);
