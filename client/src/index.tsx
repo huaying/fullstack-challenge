@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import { Mainnet, DAppProvider, useEthers, Config } from "@usedapp/core";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloProvider, apolloClient } from "./apollo-client";
 import {
   useCreateLoginNonceMutation,
   useLoginMutation,
@@ -14,11 +14,6 @@ const dappConfig: Config = {
       "https://mainnet.infura.io/v3/62687d1a985d4508b2b7a24827551934",
   },
 };
-
-const apolloClient = new ApolloClient({
-  uri: "http://localhost:8080/",
-  cache: new InMemoryCache(),
-});
 
 const Login: React.FC<{ userId: string }> = ({ userId }) => {
   const { library } = useEthers();
@@ -35,8 +30,11 @@ const Login: React.FC<{ userId: string }> = ({ userId }) => {
 
     console.log(nonce, userId, signature);
     if (signature) {
-      const token = await loginMutation({ variables: { userId, signature } });
-      console.log("token", token.data);
+      const token = await loginMutation({
+        variables: { userId, signature },
+      });
+
+      localStorage.setItem("token", token.data?.login);
     }
   };
 
