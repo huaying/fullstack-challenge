@@ -1,11 +1,25 @@
-# Full-stack Engineer Challenge
+# DeBlog
 
-The challenge consists of two parts:
-* [Code Challenge](./CodeChallenge.md)
-* [Written Challenge](./WrittenChallenge.md)
+## Design
 
-Please clone this repo and submit your work in a seperate fork.
+https://github.com/huaying/fullstack-challenge/blob/master/DesignDocs.md
 
-The challenges are designed to demonstrate the applicant's way of thinking and personal passions. All challenges are open ended, so please feel free to frame the questions as you see fit, or answer them in any way that you think interesting and revealing.
+## Prerequisite
 
-Enjoy and good luck!
+Install docker, docker-compose and yarn
+
+## Start the service
+
+1. Server
+
+```
+# It starts the ipfs service and the api server.
+docker-compose --build up
+```
+
+2. Client
+
+```
+cd ./client
+yarn install && yarn start
+```

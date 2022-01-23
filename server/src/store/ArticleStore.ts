@@ -9,7 +9,7 @@ class ArticleStore {
       return this.db;
     }
 
-    const ipfs = create({ url: "http://127.0.0.1:5002" });
+    const ipfs = create({ url: "http://ipfs:5001" });
     const orbitdb = await OrbitDB.createInstance(ipfs);
 
     this.db = orbitdb;

@@ -13,7 +13,7 @@ import {
 // init server
 const server = new ApolloServer({
   cors: {
-    origin: "*",
+    origin: "*", // for demo purpose
   },
   dataSources: () => ({}),
   debug: true,
