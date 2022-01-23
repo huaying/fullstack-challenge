@@ -8,6 +8,7 @@ import {
   useArticlesQuery,
   Article,
 } from "./generated/graphql";
+import "./index.css";
 
 const dappConfig: Config = {
   readOnlyChainId: Mainnet.chainId,
@@ -68,7 +69,7 @@ export function App(): React.ReactElement {
   const { activateBrowserWallet, account } = useEthers();
 
   return (
-    <div>
+    <div className="bg-slate-50">
       <div>
         {!account && (
           <button onClick={() => activateBrowserWallet()}>Connect</button>

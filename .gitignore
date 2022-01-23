@@ -2,7 +2,7 @@
 .vscode
 
 # Cache
-.cache
+.parcel-cache
 
 # Local System
 .DS_store
