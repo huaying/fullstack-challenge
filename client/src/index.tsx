@@ -2,12 +2,14 @@ import React from "react";
 import { render } from "react-dom";
 import { Mainnet, DAppProvider, useEthers, Config } from "@usedapp/core";
 import { ApolloProvider, apolloClient } from "./apollo-client";
+import { BrowserRouter } from "react-router-dom";
 import {
   useCreateLoginNonceMutation,
   useLoginMutation,
   useArticlesQuery,
   Article,
 } from "./generated/graphql";
+import App from "./app";
 import "./index.css";
 
 const dappConfig: Config = {
@@ -65,7 +67,7 @@ const Articles: React.FC = () => {
   );
 };
 
-export function App(): React.ReactElement {
+export function App2(): React.ReactElement {
   const { activateBrowserWallet, account } = useEthers();
 
   return (
@@ -87,9 +89,11 @@ export function App(): React.ReactElement {
 }
 render(
   <ApolloProvider client={apolloClient}>
-    <DAppProvider config={dappConfig}>
-      <App />
-    </DAppProvider>
+    <BrowserRouter>
+      <DAppProvider config={dappConfig}>
+        <App />
+      </DAppProvider>
+    </BrowserRouter>
   </ApolloProvider>,
   document.getElementById("app")
 );

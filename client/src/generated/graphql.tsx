@@ -69,6 +69,14 @@ export type QueryArticleArgs = {
   articleId: Scalars['ID'];
 };
 
+export type CreateArticleMutationVariables = Exact<{
+  title: Scalars['String'];
+  content: Scalars['String'];
+}>;
+
+
+export type CreateArticleMutation = { __typename?: 'Mutation', createArticle?: { __typename?: 'Article', id?: string | null | undefined, title?: string | null | undefined, content?: string | null | undefined, createdAt?: any | null | undefined } | null | undefined };
+
 export type CreateLoginNonceMutationVariables = Exact<{
   userId: Scalars['ID'];
 }>;
@@ -97,6 +105,43 @@ export type ArticlesQueryVariables = Exact<{ [key: string]: never; }>;
 export type ArticlesQuery = { __typename?: 'Query', articles?: Array<{ __typename?: 'Article', id?: string | null | undefined, title?: string | null | undefined, content?: string | null | undefined, createdAt?: any | null | undefined }> | null | undefined };
 
 
+export const CreateArticleDocument = gql`
+    mutation CreateArticle($title: String!, $content: String!) {
+  createArticle(title: $title, content: $content) {
+    id
+    title
+    content
+    createdAt
+  }
+}
+    `;
+export type CreateArticleMutationFn = Apollo.MutationFunction<CreateArticleMutation, CreateArticleMutationVariables>;
+
+/**
+ * __useCreateArticleMutation__
+ *
+ * To run a mutation, you first call `useCreateArticleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateArticleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createArticleMutation, { data, loading, error }] = useCreateArticleMutation({
+ *   variables: {
+ *      title: // value for 'title'
+ *      content: // value for 'content'
+ *   },
+ * });
+ */
+export function useCreateArticleMutation(baseOptions?: Apollo.MutationHookOptions<CreateArticleMutation, CreateArticleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateArticleMutation, CreateArticleMutationVariables>(CreateArticleDocument, options);
+      }
+export type CreateArticleMutationHookResult = ReturnType<typeof useCreateArticleMutation>;
+export type CreateArticleMutationResult = Apollo.MutationResult<CreateArticleMutation>;
+export type CreateArticleMutationOptions = Apollo.BaseMutationOptions<CreateArticleMutation, CreateArticleMutationVariables>;
 export const CreateLoginNonceDocument = gql`
     mutation CreateLoginNonce($userId: ID!) {
   createLoginNonce(userId: $userId)

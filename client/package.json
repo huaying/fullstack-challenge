@@ -20,6 +20,7 @@
     "koa": "^2.13.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "6",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
