@@ -5,6 +5,8 @@ import { ApolloProvider, apolloClient } from "./apollo-client";
 import {
   useCreateLoginNonceMutation,
   useLoginMutation,
+  useArticlesQuery,
+  Article,
 } from "./generated/graphql";
 
 const dappConfig: Config = {
@@ -41,6 +43,27 @@ const Login: React.FC<{ userId: string }> = ({ userId }) => {
   return <button onClick={() => sign()}>Login</button>;
 };
 
+const Articles: React.FC = () => {
+  const { data, loading, error } = useArticlesQuery();
+  if (loading || error) return null;
+
+  return (
+    <>
+      {data?.articles &&
+        data?.articles.map(
+          (article: Article): JSX.Element => (
+            <div key={article.id}>
+              <div>{article.id}</div>
+              <div>{article.title}</div>
+              <div>{article.content}</div>
+              <div>{article.createdAt}</div>
+            </div>
+          )
+        )}
+    </>
+  );
+};
+
 export function App(): React.ReactElement {
   const { activateBrowserWallet, account } = useEthers();
 
@@ -57,6 +80,7 @@ export function App(): React.ReactElement {
           <Login userId={account} />
         </>
       )}
+      <Articles />
     </div>
   );
 }

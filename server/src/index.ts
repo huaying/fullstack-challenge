@@ -1,9 +1,8 @@
 require("dotenv").config();
 
 import { ApolloServer } from "apollo-server";
-import { makeExecutableSchema } from "@graphql-tools/schema";
-import resolvers from "./graphql/resolvers";
-import typeDefs from "./graphql/typeDefs";
+import { resolvers, typeDefs, context } from "./graphql";
+
 import {
   TimestampResolver,
   TimestampTypeDefinition,
@@ -18,14 +17,13 @@ const server = new ApolloServer({
   },
   dataSources: () => ({}),
   debug: true,
-  schema: makeExecutableSchema({
-    typeDefs: [TimestampTypeDefinition, JWTDefinition, typeDefs],
-    resolvers: {
-      Timestamp: TimestampResolver,
-      JWT: JWTResolver,
-      ...resolvers,
-    },
-  }),
+  typeDefs: [TimestampTypeDefinition, JWTDefinition, typeDefs],
+  resolvers: {
+    Timestamp: TimestampResolver,
+    JWT: JWTResolver,
+    ...resolvers,
+  },
+  context,
 });
 
 // run server up

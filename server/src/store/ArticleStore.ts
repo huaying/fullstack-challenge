@@ -64,4 +64,6 @@ class ArticleStore {
   }
 }
 
-export default ArticleStore;
+const articleStore = new ArticleStore();
+
+export default articleStore;

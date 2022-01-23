@@ -1,6 +1,12 @@
 import { recoverPersonalSignature } from "eth-sig-util";
-import { bufferToHex } from "ethereumjs-util";
 import jwt from "jsonwebtoken";
+import jwtDecode, { JwtPayload } from "jwt-decode";
+
+declare module "jwt-decode" {
+  export interface JwtPayload {
+    userId: string;
+  }
+}
 
 class Auth {
   nonceStore = {};
@@ -41,6 +47,19 @@ class Auth {
     this.nonceStore[userId] = nonce;
     return nonce;
   }
+
+  verifyAccessToken(token) {
+    try {
+      const accessToken = token.split(" ")[1];
+      const decoded = jwtDecode<JwtPayload>(accessToken);
+
+      return decoded.userId;
+    } catch (err) {
+      return null;
+    }
+  }
 }
 
-export default Auth;
+const auth = new Auth();
+
+export default auth;

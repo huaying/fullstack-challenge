@@ -1,16 +1,17 @@
-import ArticleStore from "../store/ArticleStore";
-import Auth from "../auth";
-
-const articleStore = new ArticleStore();
-const auth = new Auth();
+import articleStore from "../store/ArticleStore";
+import auth from "../auth";
 
 // userId in the resolvers means a user's address
 const resolvers = {
   Query: {
-    articles: async (_, { userId }) => {
+    articles: async (_, __, { userId }) => {
+      if (!userId) return null;
+
       return articleStore.getAll(userId);
     },
-    article: async (_, { articleId, userId }) => {
+    article: async (_, { articleId }, { userId }) => {
+      if (!userId) return null;
+
       return articleStore.get(userId, articleId);
     },
   },
@@ -21,7 +22,9 @@ const resolvers = {
     login: async (_, { userId, signature }) => {
       return auth.loginUser(userId, signature);
     },
-    createArticle: async (_, { userId, title, content }) => {
+    createArticle: async (_, { title, content }, { userId }) => {
+      if (!userId) return null;
+
       return articleStore.create({ userId, title, content });
     },
   },

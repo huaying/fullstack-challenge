@@ -1,0 +1,8 @@
+query Article($articleId: ID!) {
+  article(articleId: $articleId) {
+    id
+    title
+    content
+    createdAt
+  }
+}
