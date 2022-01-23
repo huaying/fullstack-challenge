@@ -1,6 +1,7 @@
 import React from "react";
 import { useArticlesQuery, Article as ArticleType } from "../generated/graphql";
 import { useEthers } from "@usedapp/core";
+import useLogin from "../hooks/user-login";
 
 const Article: React.FC<{ article: ArticleType }> = ({ article }) => {
   return (
@@ -11,23 +12,33 @@ const Article: React.FC<{ article: ArticleType }> = ({ article }) => {
   );
 };
 
-const Home: React.FC = () => {
+const Articles: React.FC = () => {
   const { data, loading, error } = useArticlesQuery();
-  const { account } = useEthers();
-
   if (loading || error) return null;
-
   return (
     <div>
-      <div className="text-slate-500 font-medium text-sm text-center my-8">
-        MY ADDRESS: {account}
-      </div>
       {data?.articles &&
         data?.articles.map(
           (article): JSX.Element => (
             <Article key={article.id} article={article} />
           )
         )}
+    </div>
+  );
+};
+
+const Home: React.FC = () => {
+  const { account } = useEthers();
+  const { isLoggedIn } = useLogin();
+
+  if (!account) return null;
+
+  return (
+    <div>
+      <div className="text-slate-500 font-medium text-sm text-center my-8">
+        MY ADDRESS: {account}
+      </div>
+      {isLoggedIn && <Articles />}
     </div>
   );
 };

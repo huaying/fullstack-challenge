@@ -9,6 +9,7 @@ const typeDefs = gql`
   }
 
   type Query {
+    isLoggedIn: Boolean
     articles: [Article!]
     article(articleId: ID!): Article
   }

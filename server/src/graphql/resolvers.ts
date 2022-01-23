@@ -4,6 +4,9 @@ import auth from "../auth";
 // userId in the resolvers means a user's address
 const resolvers = {
   Query: {
+    isLoggedIn: async (_, __, { userId }) => {
+      return !!userId;
+    },
     articles: async (_, __, { userId }) => {
       if (!userId) return null;
 
