@@ -28,3 +28,9 @@ yarn install && yarn start
 # to specify the endpoint:
 GRAPHQL_API={API_URL} yarn start
 ```
+
+
+## Demo
+http://165.227.5.206:8888
+
+<img width="500" alt="Screen Shot 2022-01-24 at 2 14 54 PM" src="https://user-images.githubusercontent.com/3991678/150731416-77dfdd56-a5f4-4679-8e8c-129e73855b10.png">
